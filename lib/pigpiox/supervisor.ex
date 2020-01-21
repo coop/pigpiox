@@ -1,14 +1,13 @@
 defmodule Pigpiox.Supervisor do
   @moduledoc false
+
   use Supervisor
 
-  @spec start_link :: {:ok, pid} | {:error, term}
-  def start_link do
-    Supervisor.start_link(__MODULE__, :ok, name: __MODULE__)
+  def start_link(arg) do
+    Supervisor.start_link(__MODULE__, arg, name: __MODULE__)
   end
 
-  @spec init(:ok) :: {:ok, {:supervisor.sup_flags, [:supervisor.child_spec]}}
-  def init(:ok) do
+  def init(_arg) do
     children = [
       {Pigpiox.Port, [name: Pigpiox.Port]},
       {Pigpiox.Socket, [name: Pigpiox.Socket]},
